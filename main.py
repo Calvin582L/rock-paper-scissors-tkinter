@@ -41,9 +41,14 @@ class Application(tk.Frame):
         self.scissors["command"] = self.say_scissors
         self.scissors.pack(side="left")
 
+        self.show_score.config(state=tk.DISABLED)
+        self.text.config(state=tk.DISABLED)
+
     def say_rock(self):
       self.user = "ROCK"
+      self.text.config(state=tk.NORMAL)
       self.text.insert(tk.END, "You picked rock! \n")
+      self.text.config(state=tk.DISABLED)
       self.rock["state"] = tk.DISABLED
       self.paper["state"] = tk.DISABLED
       self.scissors["state"] = tk.DISABLED
@@ -51,7 +56,9 @@ class Application(tk.Frame):
 
     def say_paper(self):
       self.user = "PAPER"
+      self.text.config(state=tk.NORMAL)
       self.text.insert(tk.END, "You picked paper! \n")
+      self.text.config(state=tk.DISABLED)
       self.rock["state"] = tk.DISABLED
       self.paper["state"] = tk.DISABLED
       self.scissors["state"] = tk.DISABLED
@@ -59,13 +66,16 @@ class Application(tk.Frame):
 
     def say_scissors(self):
       self.user = "SCISSORS"
+      self.text.config(state=tk.NORMAL)
       self.text.insert(tk.END, "You picked scissors! \n")
+      self.text.config(state=tk.DISABLED)
       self.rock["state"] = tk.DISABLED
       self.paper["state"] = tk.DISABLED
       self.scissors["state"] = tk.DISABLED
       self.random()
 
     def clear(self):
+      self.text.config(state=tk.NORMAL)
       self.text.delete('1.0', tk.END)
       self.rock["state"] = tk.NORMAL
       self.paper["state"] = tk.NORMAL
@@ -81,6 +91,7 @@ class Application(tk.Frame):
       elif self.num == 3:
         self.cpu_move = "SCISSORS"
 
+      self.text.config(state=tk.NORMAL)
       self.text.insert(tk.END, "CPU picked...\n")
       self.text.insert(tk.END, f"{self.cpu_move}!\n")
 
@@ -105,11 +116,14 @@ class Application(tk.Frame):
         self.text.insert(tk.END, f"You picked {self.user} and CPU picked {self.cpu_move}!\nUser LOSES! ")
         self.cpu_score += 1
       
+      self.text.config(state=tk.DISABLED)
       self.update_score()
         
     def update_score(self):
+      self.show_score.config(state=tk.NORMAL)
       self.show_score.delete('1.0', tk.END)
       self.show_score.insert(tk.END, f"User: {self.score} CPU: {self.cpu_score}")
+      self.show_score.config(state=tk.DISABLED)
 
 root = tk.Tk()
 root.title('Rock Paper Scissors by Calvin Liew')
